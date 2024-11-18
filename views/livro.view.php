@@ -2,7 +2,7 @@
     <div class="flex">
         <div class="w-1/3">Img</div>
         <div>
-            <a class="font-semibold hover:underline" href="/livro.php?id=<?= $book['id'] ?>"><?= $book['title'] ?></a>
+            <a class="font-semibold hover:underline" href="/livro?id=<?= $book['id'] ?>"><?= $book['title'] ?></a>
             <div class="text-xs italic"><?= $book['author'] ?></div>
             <div class="text-xs italic"><?= $book['rating'] ?></div>
         </div>
