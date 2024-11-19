@@ -2,12 +2,12 @@
     <div class="flex">
         <div class="w-1/3">Img</div>
         <div>
-            <a class="font-semibold hover:underline" href="/livro?id=<?= $book['id'] ?>"><?= $book['title'] ?></a>
-            <div class="text-xs italic"><?= $book['author'] ?></div>
-            <div class="text-xs italic"><?= $book['rating'] ?></div>
+            <a class="font-semibold hover:underline" href="/livro?id=<?= $bookDetail['id'] ?>"><?= $bookDetail['title'] ?></a>
+            <div class="text-xs italic"><?= $bookDetail['author'] ?></div>
+            <div class="text-xs italic"><?= $bookDetail['rating'] ?></div>
         </div>
     </div>
     <div>
-        <?= $book['description'] ?>
+        <?= $bookDetail['description'] ?>
     </div>
 </div>

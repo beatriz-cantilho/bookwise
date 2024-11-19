@@ -7,4 +7,19 @@ function dd(...$dump) {
     die();
 }
 
+function abort($code) {
+    http_response_code($code);
+    view($code);
+    die();
+}
+//$$ -> variavel dinamica
+
+function view($view, $data = []) {
+    foreach($data as $key => $value) {
+        $$key = $value;
+    }
+
+    require "views/template/app.php";
+}
+
 ?>

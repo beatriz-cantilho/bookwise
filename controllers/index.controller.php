@@ -2,8 +2,5 @@
 
 require 'dados.php';
 
-$view = 'livro';
-require 'views/template/app.php';
+view('index', compact('books'));
 
-
-?>

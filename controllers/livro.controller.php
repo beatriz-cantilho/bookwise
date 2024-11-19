@@ -9,11 +9,6 @@ $filteredBook = array_filter($books, function($book) use($bookId) {
 });
 
 //$filteredBook = array_filter($books, fn($book) => $book['id'] == $bookId); função mais simples php 7.4
-
 $bookDetail = array_pop($filteredBook);
 
-$view = 'livro';
-require 'views/template/app.php';
-
-
-?>
+view('livro', compact('books'));
