@@ -1,6 +1,7 @@
 <?php 
 
-require 'dados.php';
+$db = new DB();
+$books = $db->fetchAllBooks();
 
 view('index', compact('books'));
 
