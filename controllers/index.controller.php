@@ -1,7 +1,6 @@
 <?php 
 
-$db = new DB();
-$books = $db->fetchAllBooks();
+$books = (new DB)->fetchAllBooks();
 
 view('index', compact('books'));
 

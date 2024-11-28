@@ -1,22 +1,25 @@
 <?php 
 
 class DB {
+    private $database;
+
+    public function __construct()
+    {
+        $this->database = new PDO('sqlite:bookwise.db');
+        
+    }
+
     public function fetchAllBooks() {
-        $database = new PDO('sqlite:bookwise.db');
-        $query = $database->query("select * from books");
+        $query = $this->database->query("select * from books");
         $items =  $query->fetchAll();
-        $queried = [];
 
-        foreach($items as $item) {
-            $book = new Book;
-            $book->id = $item['id'];
-            $book->title = $item['title'];
-            $book->author = $item['author'];
-            $book->description = $item['description'];
+        return array_map(fn($item) => Book::make($item), $items);
+    }
 
-            $queried []= $book;
-        }
+    public function fetchBookById($id) {
+        $query = $this->database->query("SELECT * FROM books WHERE id = " . $id);
+        $items = $query->fetchAll();
 
-        return $queried;
+        return array_map(fn($item) => Book::make($item), $items)[0];
     }
 }
