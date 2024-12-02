@@ -3,7 +3,7 @@
         type="text"
         class="border-stone-800 border-2 rounded-md bg-stone-900 text-sm focus:outline-none px-2 py-1 w-full"
         placeholder="Pesquisar..."
-        name="pesquisar" />
+        name="search" />
     <button type="submit">Pesquisar</button>
 </form>
 

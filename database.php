@@ -9,9 +9,12 @@ class DB {
         
     }
 
-    public function fetchAllBooks() {
-        $query = $this->database->query("select * from books");
-        $items =  $query->fetchAll();
+    public function fetchAllBooks($search = null) {
+        $prepare = $this->database->prepare("select * from books where title like :search or author like :search or description like :search");
+        $prepare->bindValue('search', "%$search%");
+        $prepare->execute();
+
+        $items =  $prepare->fetchAll();
 
         return array_map(fn($item) => Book::make($item), $items);
     }
