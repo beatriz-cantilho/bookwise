@@ -5,17 +5,19 @@ class Book {
     public $id;
     public $title;
     public $author;
+    public $release_year;
     public $description;
+    public $user_id;
 
 
     //static é quando a funcao pode ser chamada sem a necessidade de se criar um obj
-    public static function make($item) {
-        $book = new self();
-        $book->id = $item['id'];
-        $book->title = $item['title'];
-        $book->author = $item['author'];
-        $book->description = $item['description'];
+    //public static function make($item) {
+        //$book = new self();
+        //$book->id = $item['id'];
+        //$book->title = $item['title'];
+        //$book->author = $item['author'];
+        //$book->description = $item['description'];
 
-        return $book;
-    }
+        //return $book;
+    //}
 }

@@ -1,6 +1,5 @@
 <?php 
 
-$id = $_REQUEST['id'];
-$book = (new DB)->fetchBookById($id);
+$book = (new DB)->fetchBookById($_REQUEST['id']);
 
 view('book', compact('book'));

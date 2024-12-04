@@ -1,7 +1,6 @@
 <?php 
 
-var_dump($_REQUEST);
-$search = $_REQUEST['search'] || ' ';
+$search = $_REQUEST['search'] ?? '';
 
 $books = (new DB)->fetchAllBooks($search);
 
