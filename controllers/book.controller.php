@@ -1,5 +1,10 @@
 <?php 
 
-$book = (new DB)->fetchBookById($_REQUEST['id']);
+$book = (new DB)->query(
+    query: "select * from books where id = :id", 
+    class: Book::class, 
+    params: ['id' => $_GET['id']]
+    )
+    ->fetch();
 
 view('book', compact('book'));

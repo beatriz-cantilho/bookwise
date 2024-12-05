@@ -9,24 +9,13 @@ class DB {
         
     }
 
-    public function fetchAllBooks($search = null) {
-        $prepare = $this->database->prepare("select * from books where title like :search or author like :search or description like :search");
-        $prepare->bindValue('search', "%$search%");
-        $prepare->setFetchMode(PDO::FETCH_CLASS, Book::class);
-        $prepare->execute();
+    public function query($query, $class = null, $params = []) {
+        $prepare = $this->database->prepare($query);
+        if($class) {
+            $prepare->setFetchMode(PDO::FETCH_CLASS, $class);
+        }
+        $prepare->execute($params);
 
-        return $prepare->fetchAll();
-
-        //return array_map(fn($item) => Book::make($item), $items);
-    }
-
-    public function fetchBookById($id) {
-        $query = $this->database->prepare("SELECT * FROM books WHERE id = :id ");
-        $query->bindValue('id', $id);
-        $query->setFetchMode(PDO::FETCH_CLASS, Book::class);
-        $query->execute();
-        return $query->fetch();
-
-        //return array_map(fn($item) => Book::make($item), $items)[0];
+        return $prepare;
     }
 }
