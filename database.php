@@ -3,10 +3,11 @@
 class DB {
     private $database;
 
-    public function __construct()
+    public function __construct($config)
     {
-        $this->database = new PDO('sqlite:bookwise.db');
-        
+        $connectionString = $config['driver'] . ':' . $config['database'];
+
+        $this->database = new PDO($connectionString);
     }
 
     public function query($query, $class = null, $params = []) {
@@ -19,3 +20,5 @@ class DB {
         return $prepare;
     }
 }
+
+$DB =  new DB($config['database']);
