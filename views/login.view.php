@@ -29,13 +29,28 @@
     
     <div class="border border-stone-700 rounded">
         <h1 class="border-b border-stone-700 text-stone-400 font-bold px-4 py-2">Cadastro</h1>
-        <form class="p-4 space-y-4">
+        <form class="p-4 space-y-4" method="POST" action="/register">
+            <?php if(isset($message) && strlen($message)): ?>
+                <div class="border-green-800 bg-green-900 text-green-400 px-4 py-1 rounded-md border-2 text-sm font-bold">
+                    <?=message?>
+                </div>
+            <?php endif;?>
+            <?php if(isset($validations) && sizeof($validations)): ?>
+                <div class="border-red-800 bg-red-900 text-red-400 px-4 py-1 rounded-md border-2 text-sm font-bold">
+                    <ul>
+                        <li>Ops! Algo deu errado!</li>
+                        <?php foreach($validations as $validation): ?>
+                            <li><?=$validation?></li>
+                        <?php endforeach;?>    
+                    </ul>
+                </div>
+            <?php endif;?>
             <div class="flex flex-col">
                 <label class="text-stone-400 mb-1">Nome</label>
                 <input
                     type="text"
                     class="border-stone-800 border-2 rounded-md bg-stone-900 text-sm focus:outline-none px-2 py-1"
-                    name="nome" required
+                    name="nome"
                 />
             </div>
             <div class="flex flex-col">
@@ -51,7 +66,7 @@
                 <input
                     type="email"
                     class="border-stone-800 border-2 rounded-md bg-stone-900 text-sm focus:outline-none px-2 py-1"
-                    name="email-confirmation" required
+                    name="email-confirmation"
                 />
             </div>
             <div class="flex flex-col">
@@ -59,7 +74,7 @@
                 <input
                     type="password"
                     class="border-stone-800 border-2 rounded-md bg-stone-900 text-sm focus:outline-none px-2 py-1"
-                    name="password" required
+                    name="password" 
                 />
             </div>
             <button 
