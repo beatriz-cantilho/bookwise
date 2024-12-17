@@ -1,34 +1,18 @@
 <?php
 
+require 'Validation.php';
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
-    $validations = [];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $emailConfirmation = $_POST['email-confirmation'];
-    $password = $_POST['password'];
+    $validation = Validation::verify([
+        'name' => ['required'],
+        'email' => ['required', 'email', 'confirmed'],
+        'password' => ['required', 'min:8', 'max:30', 'strong'],
+    ], $_POST);
 
-    if(strlen($name == 0)){
-        $validations []= 'O nome é obrigatório.';
-    }
-
-    if(strlen($email == 0)){
-        $validations []= 'O email é obrigatório.';
-    }
-
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $validations []= 'O email é inválido';
-    }
-
-    if(strlen($email != $emailConfirmation)){
-        $validations []= 'O email de confirmação está diferente.';
-    }
-
-    if(strlen($password == 0)){
-        $validations []= 'A senha é obrigatória.';
-    }
-
-    if(strlen($password < 8 || strlen($password) > 30)){
-        $validations []= 'A senha precisa ter enter 8 e 30 caracteres.';
+    if($validation->failValidation()){
+        $_SESSION['validations'] = $validation->validations;
+        header('location: /login');
+        exit();
     }
 
     if(sizeof($validations) > 0){
