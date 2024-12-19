@@ -12,12 +12,21 @@ class Validation {
                 $fieldValue = $data[$field];
 
                 if($rule == 'confirmed') {
-                    $validation->$rule($field, $fieldValue, $data["{$field}Confirmation"]);
-                } else {
+                    $validation->$rule($field, $fieldValue, $data["{$field}-confirmation"]);
+                } 
+
+                elseif(str_contains($rule, ':')){
+                    $tmp = explode(':', $rule);
+                    $rule = $tmp[0];
+                    $rule2 = $tmp[1];
+                    $validation->$rule($rule2, $field, $fieldValue);
+                } 
+                else {
                     $validation->$rule($field, $fieldValue);
                 }
             }
         }
+        return $validation;
     }
 
     private function required($field, $value) {
@@ -38,42 +47,32 @@ class Validation {
         }
     }
 
-    private function isPasswordInRange($field, $value, $minimum, $maximum) {
+    private function min($minimum, $field, $value) {
+        if(strlen($value) <= $minimum){
+            $this->validations []= "A $field precisa ter no mínimo $minimum caracteres.";
+        }
+    }
+
+    private function max($maximum, $field, $value) {
+        if(strlen($value) >= $maximum){
+            $this->validations []= "A $field precisa ter no máximo $maximum caracteres.";
+        }
+    }
+
+    private function strong($field, $value){
+        if(!strpbrk($value, '!@#$%^&*()+_-[\];.,/?|')){
+            $this->validations []= "A $field precisa ter um caracter especial.";
+        }
+    }
+
+    private function range($field, $value, $minimum, $maximum) {
         if(strlen($value < $minimum || strlen($value) > $maximum)){
             $this->validations []= "A $field precisa ter entre $minimum e $maximum caracteres.";
         }
     }
 
     public function failValidation() {
+        $_SESSION['validations'] = $this->validations;
         return sizeof($this->validations) > 0;
     }
 }
-/**$validations = [];
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $emailConfirmation = $_POST['email-confirmation'];
-    $password = $_POST['password'];
-
-    if(strlen($name == 0)){
-        $validations []= 'O nome é obrigatório.';
-    }
-
-    if(strlen($email == 0)){
-        $validations []= 'O email é obrigatório.';
-    }
-
-    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){
-        $validations []= 'O email é inválido';
-    }
-
-    if(strlen($email != $emailConfirmation)){
-        $validations []= 'O email de confirmação está diferente.';
-    }
-
-    if(strlen($password == 0)){
-        $validations []= 'A senha é obrigatória.';
-    }
-
-    if(strlen($password < 8 || strlen($password) > 30)){
-        $validations []= 'A senha precisa ter enter 8 e 30 caracteres.';
-    }**/

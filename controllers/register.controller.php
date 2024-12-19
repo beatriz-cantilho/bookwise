@@ -10,13 +10,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     ], $_POST);
 
     if($validation->failValidation()){
-        $_SESSION['validations'] = $validation->validations;
         header('location: /login');
-        exit();
-    }
-
-    if(sizeof($validations) > 0){
-        view('login', compact('validations'));
         exit();
     }
 

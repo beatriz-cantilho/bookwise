@@ -32,7 +32,7 @@
         <form class="p-4 space-y-4" method="POST" action="/register">
             <?php if(isset($message) && strlen($message)): ?>
                 <div class="border-green-800 bg-green-900 text-green-400 px-4 py-1 rounded-md border-2 text-sm font-bold">
-                    <?=message?>
+                    <?php echo $message ?>
                 </div>
             <?php endif;?>
             <?php if(isset($validations) && sizeof($validations)): ?>
@@ -50,7 +50,7 @@
                 <input
                     type="text"
                     class="border-stone-800 border-2 rounded-md bg-stone-900 text-sm focus:outline-none px-2 py-1"
-                    name="nome"
+                    name="name"
                 />
             </div>
             <div class="flex flex-col">
